@@ -385,7 +385,7 @@ module Rack
           logger.info "RO2S: Access token #{access_token.token} granted to client #{client.display_name}, identity #{access_token.identity} that requested scope #{access_token.scope}" if logger
           response = { :access_token => access_token.token }
           response[:scope] = access_token.scope.split(' ').join(',')
-          user = User.select([:id, :email, :first_name, :last_name]).find(access_token.identity)
+          user = User.select([:id, :email, :full_name]).find(access_token.identity)
           response[:user] = user.attributes
           return [200, { "Content-Type"=>"application/json", "Cache-Control"=>"no-store" }, [response.to_json]]
           # 4.3.  Error Response
